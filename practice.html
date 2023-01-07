@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Persional Bio Demo</title>
+    </head>
+    <body>
+
+        Name: <input type="text" id="name_field" /><br />
+
+
+        <form id="main_form">
+            <input type="submit" value="Process" />
+        </form>
+
+        <script>
+            var fns = [];
+            var data = {};
+
+            var form = document.getElementById("main_form");
+
+            form.onsubmit = function(e) {
+                            e.preventDefault();
+
+                            data = {};
+
+                            for (var i = 0; i < fns.length; i++) {
+                                            if (fns[i]() == false) {
+                                                            return;
+                                                        }
+                                        }
+
+                            console.log("Verified Data: ", data);
+                        }
+
+            function process_name() {
+                            var field = document.getElementById("name_field");
+                            var name = field.value;
+
+                            var name_pattern = /^(\S+) (\S*) ?\b(\S+)$/;
+
+                            if (name_pattern.test(name) === false) {
+                                            alert("Name field is invalid");
+                                            return false;
+                                        }
+
+                            var res = name_pattern.exec(name);
+                            data.first_name = res[1];
+                            data.last_name = res[3];
+
+                            if (res[2].length > 0) {
+                                            data.middle_name = res[2];
+                                        }
+                            return true;
+                        }
+
+            fns.push(process_name);
+
+
+
+
+
+
+        </script>
+    </body>
+</html>
