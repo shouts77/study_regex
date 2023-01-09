@@ -6,6 +6,10 @@
     <body>
 
         Name: <input type="text" id="name_field" /><br />
+        Email: <input type="text" id="email_field" /><br />
+        Twitter: <input type="text" id="twitter_field" /><br />
+        Password: <input type="password" id="password_field" /><br />
+        Website: <input type="text" id="website_field" /><br />
 
 
         <form id="main_form">
@@ -28,7 +32,6 @@
                                                             return;
                                                         }
                                         }
-
                             console.log("Verified Data: ", data);
                         }
 
@@ -55,11 +58,94 @@
 
             fns.push(process_name);
 
+            function process_email() {
+                            var field = document.getElementById("email_field");
+                            var email = field.value;
+
+                            var email_pattern = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
+
+                            if (email_pattern.test(email) === false) {
+                                            alert("Email is invalid");
+                                            return false;
+                                        }
+                            data.email = email;
+                            return true;
+                        }
+
+            fns.push(process_email);
+
+            function process_twitter() {
+                            var field = document.getElementById("twitter_field");
+                            var username = field.value;
+
+                            var twitter_pattern = /^@?(\w+)$/;
+
+                            if (twitter_pattern.test(username) === false) {
+                                            alert("Twitter username is invalid");
+                                            return false;
+                                        }
+                            
+                            var res = twitter_pattern.exec(username);
+                            data.twitter = "@" + res[1];
+                            return true;
+                        }
+
+            fns.push(process_twitter);
+
+            function process_password() {
+                            var field = document.getElementById("password_field");
+                            var password = field.value;
+
+                            var contains_lowercase = /[a-z]/;
+                            var contains_uppercase = /[A-Z]/;
+                            var contains_number = /[0-9]/;
+                            var contains_other = /[^a-zA-Z0-9]/;
+
+                            if (contains_lowercase.test(password) === false) {
+                                            alert("Password must include a lowercase letter");
+                                            return false;
+                                        }
 
 
+                            if (contains_uppercase.test(password) === false) {
+                                            alert("Password must include a uppercase letter");
+                                            return false;
+                                        }
 
 
+                            if (contains_number.test(password) === false) {
+                                            alert("Password must include a number");
+                                            return false;
+                                        }
 
+
+                            if (contains_other.test(password) === false) {
+                                            alert("Password must include a non-alpahnumeric character");
+                                            return false;
+                                        }
+
+                            data.password =  password;
+                            return true;
+                        }
+            fns.push(process_password);
+
+
+            function process_website() {
+                            var field = document.getElementById("website_field");
+                            var website = field.value;
+
+                            var pattern = /^(?:https?:\/\/)?\w+(?:\.\w+)?(?:\.[A-Z]{2,3})+$/i;
+
+                            if (pattern.test(website) === false) {
+                                            alert("Website is invalid");
+                                            return false;
+                                        }
+                            
+                            data.website = website;
+                            return true;
+                        }
+            fns.push(process_website);
+                            
         </script>
     </body>
 </html>
