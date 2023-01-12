@@ -10,6 +10,8 @@
         Twitter: <input type="text" id="twitter_field" /><br />
         Password: <input type="password" id="password_field" /><br />
         Website: <input type="text" id="website_field" /><br />
+        Description: <br />
+        <textarea id="description_field"></textarea><br />
 
 
         <form id="main_form">
@@ -145,6 +147,27 @@
                             return true;
                         }
             fns.push(process_website);
+
+            function process_description() {
+                            var field = document.getElementById("description_field");
+                            var description = field.value;
+
+                            data.text_description = description;
+
+                            var line_pattern = /\n+/g;
+                            description = description.replace(line_pattern, function(match) {
+                                            if (match == "\n") {
+                                                            return "<br />";
+                                                        } else {
+                                                                        return "</p><p>";
+                                                                    }
+                                        });
+
+                            data.html_description = "<p>" + description + "</p>";
+
+                            return true;
+                        }
+            fns.push(process_description);
                             
         </script>
     </body>
